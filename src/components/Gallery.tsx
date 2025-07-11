@@ -5,7 +5,7 @@ const Gallery: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'masonry'>('masonry');
+  const [viewMode, setViewMode] = useState<'grid' | 'masonry'>('grid');
   const [searchTerm, setSearchTerm] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -29,10 +29,10 @@ const Gallery: React.FC = () => {
 
   const filters = [
     { id: 'all', label: 'All Projects', count: 12, color: 'from-blue-500 to-blue-600' },
-    { id: 'manufacturing', label: 'Manufacturing', count: 4, color: 'from-green-500 to-green-600' },
-    { id: 'automation', label: 'Automation', count: 3, color: 'from-purple-500 to-purple-600' },
-    { id: 'facilities', label: 'Facilities', count: 3, color: 'from-orange-500 to-orange-600' },
-    { id: 'products', label: 'Products', count: 2, color: 'from-red-500 to-red-600' }
+    { id: 'manufacturing', label: 'Manufacturing', count: 4, color: 'from-red-500 to-red-600' },
+    { id: 'automation', label: 'Automation', count: 3, color: 'from-blue-600 to-red-600' },
+    { id: 'facilities', label: 'Facilities', count: 3, color: 'from-red-600 to-blue-600' },
+    { id: 'products', label: 'Products', count: 2, color: 'from-blue-500 to-red-500' }
   ];
 
   const galleryImages = [
@@ -42,8 +42,7 @@ const Gallery: React.FC = () => {
       title: 'Advanced Manufacturing Facility',
       category: 'manufacturing',
       description: 'State-of-the-art manufacturing floor with precision equipment and automated systems',
-      tags: ['CNC', 'Precision', 'Automated'],
-      height: 'h-80'
+      tags: ['CNC', 'Precision', 'Automated']
     },
     {
       id: 2,
@@ -51,8 +50,7 @@ const Gallery: React.FC = () => {
       title: 'Automation Control Room',
       category: 'automation',
       description: 'Modern control room with advanced monitoring systems and real-time analytics',
-      tags: ['Control', 'Monitoring', 'Analytics'],
-      height: 'h-96'
+      tags: ['Control', 'Monitoring', 'Analytics']
     },
     {
       id: 3,
@@ -60,8 +58,7 @@ const Gallery: React.FC = () => {
       title: 'Quality Control Laboratory',
       category: 'facilities',
       description: 'Precision testing and quality assurance facility with cutting-edge equipment',
-      tags: ['Testing', 'Quality', 'Laboratory'],
-      height: 'h-72'
+      tags: ['Testing', 'Quality', 'Laboratory']
     },
     {
       id: 4,
@@ -69,8 +66,7 @@ const Gallery: React.FC = () => {
       title: 'Industrial Tool Production',
       category: 'products',
       description: 'High-quality industrial tools and equipment manufacturing process',
-      tags: ['Tools', 'Production', 'Quality'],
-      height: 'h-88'
+      tags: ['Tools', 'Production', 'Quality']
     },
     {
       id: 5,
@@ -78,8 +74,7 @@ const Gallery: React.FC = () => {
       title: 'Power Systems Installation',
       category: 'automation',
       description: 'Industrial power distribution and control systems installation',
-      tags: ['Power', 'Installation', 'Systems'],
-      height: 'h-80'
+      tags: ['Power', 'Installation', 'Systems']
     },
     {
       id: 6,
@@ -87,8 +82,7 @@ const Gallery: React.FC = () => {
       title: 'Safety Equipment Testing',
       category: 'products',
       description: 'Comprehensive safety equipment and protective gear testing facility',
-      tags: ['Safety', 'Testing', 'Protection'],
-      height: 'h-76'
+      tags: ['Safety', 'Testing', 'Protection']
     },
     {
       id: 7,
@@ -96,8 +90,7 @@ const Gallery: React.FC = () => {
       title: 'Assembly Line Operations',
       category: 'manufacturing',
       description: 'Efficient assembly line with automated processes and quality control',
-      tags: ['Assembly', 'Automation', 'Efficiency'],
-      height: 'h-84'
+      tags: ['Assembly', 'Automation', 'Efficiency']
     },
     {
       id: 8,
@@ -105,8 +98,7 @@ const Gallery: React.FC = () => {
       title: 'Research & Development',
       category: 'facilities',
       description: 'Innovation lab for product development and testing new technologies',
-      tags: ['Research', 'Innovation', 'Development'],
-      height: 'h-92'
+      tags: ['Research', 'Innovation', 'Development']
     },
     {
       id: 9,
@@ -114,8 +106,7 @@ const Gallery: React.FC = () => {
       title: 'Warehouse Operations',
       category: 'facilities',
       description: 'Modern warehouse with automated storage and retrieval systems',
-      tags: ['Warehouse', 'Storage', 'Logistics'],
-      height: 'h-80'
+      tags: ['Warehouse', 'Storage', 'Logistics']
     },
     {
       id: 10,
@@ -123,8 +114,7 @@ const Gallery: React.FC = () => {
       title: 'Precision Machining',
       category: 'manufacturing',
       description: 'High-precision machining operations with advanced CNC technology',
-      tags: ['Machining', 'Precision', 'CNC'],
-      height: 'h-88'
+      tags: ['Machining', 'Precision', 'CNC']
     },
     {
       id: 11,
@@ -132,8 +122,7 @@ const Gallery: React.FC = () => {
       title: 'Electrical Systems',
       category: 'automation',
       description: 'Complex electrical systems and power distribution networks',
-      tags: ['Electrical', 'Power', 'Distribution'],
-      height: 'h-76'
+      tags: ['Electrical', 'Power', 'Distribution']
     },
     {
       id: 12,
@@ -141,8 +130,7 @@ const Gallery: React.FC = () => {
       title: 'Clean Room Facility',
       category: 'manufacturing',
       description: 'Ultra-clean manufacturing environment for sensitive components',
-      tags: ['Clean Room', 'Manufacturing', 'Precision'],
-      height: 'h-84'
+      tags: ['Clean Room', 'Manufacturing', 'Precision']
     }
   ];
 
@@ -185,35 +173,33 @@ const Gallery: React.FC = () => {
     : null;
 
   return (
-    <section id="gallery" ref={sectionRef} className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-      {/* Animated Background */}
+    <section id="gallery" ref={sectionRef} className="py-16 sm:py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-red-900 relative overflow-hidden">
+      {/* Minimal Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-600/10 to-purple-600/10"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-600/10 to-red-600/10"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${
+        <div className={`text-center mb-12 sm:mb-16 transition-all duration-500 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Project <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">Gallery</span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6">
+            Project <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Gallery</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Explore our portfolio of successful projects showcasing innovation, quality, 
             and the cutting-edge solutions that define NKN Industries.
           </p>
         </div>
 
         {/* Search and Controls */}
-        <div className={`mb-12 transition-all duration-1000 delay-200 ${
+        <div className={`mb-8 sm:mb-12 transition-all duration-500 delay-200 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+          <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center justify-between">
             {/* Search Bar */}
-            <div className="relative flex-1 max-w-md">
+            <div className="relative flex-1 max-w-md w-full">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
@@ -228,9 +214,9 @@ const Gallery: React.FC = () => {
             <div className="flex items-center space-x-4">
               <div className="flex bg-white/10 backdrop-blur-sm rounded-xl p-1 border border-white/20">
                 <button
-                  onClick={() => setViewMode('masonry')}
+                  onClick={() => setViewMode('grid')}
                   className={`p-2 rounded-lg transition-all duration-300 ${
-                    viewMode === 'masonry' 
+                    viewMode === 'grid' 
                       ? 'bg-blue-500 text-white' 
                       : 'text-gray-400 hover:text-white'
                   }`}
@@ -238,9 +224,9 @@ const Gallery: React.FC = () => {
                   <Grid className="h-5 w-5" />
                 </button>
                 <button
-                  onClick={() => setViewMode('grid')}
+                  onClick={() => setViewMode('masonry')}
                   className={`p-2 rounded-lg transition-all duration-300 ${
-                    viewMode === 'grid' 
+                    viewMode === 'masonry' 
                       ? 'bg-blue-500 text-white' 
                       : 'text-gray-400 hover:text-white'
                   }`}
@@ -254,21 +240,21 @@ const Gallery: React.FC = () => {
                 className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2 text-white hover:bg-white/20 transition-all duration-300"
               >
                 <Filter className="h-5 w-5" />
-                <span>Filters</span>
+                <span className="hidden sm:inline">Filters</span>
               </button>
             </div>
           </div>
 
           {/* Filter Buttons */}
-          <div className={`mt-6 transition-all duration-500 overflow-hidden ${
+          <div className={`mt-4 sm:mt-6 transition-all duration-300 overflow-hidden ${
             isFilterOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
           }`}>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {filters.map((filter) => (
                 <button
                   key={filter.id}
                   onClick={() => setActiveFilter(filter.id)}
-                  className={`group relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
+                  className={`group relative px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm sm:text-base ${
                     activeFilter === filter.id
                       ? 'bg-gradient-to-r text-white shadow-lg'
                       : 'bg-white/10 backdrop-blur-sm text-gray-300 hover:bg-white/20 border border-white/20'
@@ -289,40 +275,36 @@ const Gallery: React.FC = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className={`${
-          viewMode === 'masonry' 
-            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6' 
-            : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
-        }`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {filteredImages.map((image, index) => (
             <div
               key={image.id}
-              className={`transition-all duration-1000 delay-${index * 50 + 400} ${
+              className={`transition-all duration-500 delay-${index * 50 + 400} ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
               <div 
-                className="relative group cursor-pointer overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 h-80"
+                className="relative group cursor-pointer overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 transform hover:scale-105 h-80"
                 onClick={() => openModal(image.id)}
               >
                 <img
                   src={image.src}
                   alt={image.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-200">
-                      <ZoomIn className="text-white h-8 w-8" />
+                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-100">
+                      <ZoomIn className="text-white h-6 w-6 sm:h-8 sm:w-8" />
                     </div>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <div className="flex flex-wrap gap-2 mb-3">
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-3">
                     {image.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
@@ -332,17 +314,17 @@ const Gallery: React.FC = () => {
                       </span>
                     ))}
                   </div>
-                  <h3 className="text-white font-bold text-lg mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                  <h3 className="text-white font-bold text-base sm:text-lg mb-1 sm:mb-2 group-hover:text-blue-200 transition-colors duration-300">
                     {image.title}
                   </h3>
-                  <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                  <p className="text-gray-300 text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                     {image.description}
                   </p>
                 </div>
 
                 {/* Category Badge */}
                 <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 bg-blue-500/80 backdrop-blur-sm rounded-full text-xs text-white font-semibold border border-white/30">
+                  <span className="px-2 sm:px-3 py-1 bg-blue-500/80 backdrop-blur-sm rounded-full text-xs text-white font-semibold border border-white/30">
                     {filters.find(f => f.id === image.category)?.label}
                   </span>
                 </div>
@@ -396,31 +378,25 @@ const Gallery: React.FC = () => {
                 />
                 
                 {/* Image Info */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-8">
-                  <div className="flex flex-wrap gap-2 mb-4">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 sm:p-8">
+                  <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
                     {selectedImageData.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="px-3 py-1 bg-blue-500/80 backdrop-blur-sm rounded-full text-sm text-white border border-white/30"
+                        className="px-2 sm:px-3 py-1 bg-blue-500/80 backdrop-blur-sm rounded-full text-xs sm:text-sm text-white border border-white/30"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <h3 className="text-white font-bold text-3xl mb-3">{selectedImageData.title}</h3>
-                  <p className="text-gray-300 text-lg max-w-3xl">{selectedImageData.description}</p>
+                  <h3 className="text-white font-bold text-2xl sm:text-3xl mb-2 sm:mb-3">{selectedImageData.title}</h3>
+                  <p className="text-gray-300 text-base sm:text-lg max-w-3xl">{selectedImageData.description}</p>
                 </div>
               </div>
             </div>
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-      `}</style>
     </section>
   );
 };
